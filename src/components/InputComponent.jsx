@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
 
-const InputComponent = ({ setTasks }) => {
+const InputComponent = ({ loading, addNewTask }) => {
   const [text, setText] = useState("");
   const [error, setError] = useState("")
   const handleChange = (e) => {
     setText(e.target.value);
     setError("")
   };
+  
   const handleClick = () => {
     if (text !== "") {
-      setTasks((tasks) => [
-        ...tasks,
-        { id: crypto.randomUUID(), title: text, isDone: false },
-      ]);
+      addNewTask(text)
       setText("");
     } else {
       setError('Нельзя добавить пустую задачу')
@@ -34,7 +32,7 @@ const InputComponent = ({ setTasks }) => {
           />
         </Grid>
         <Grid size={4} sx={{position: 'relative'}}>
-          <Button variant="contained" onClick={handleClick} disabled={!!error} sx={{paddingLeft: '10px', paddingRight: '10px', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>
+          <Button variant="contained" onClick={handleClick} disabled={loading || !!error} sx={{paddingLeft: '10px', paddingRight: '10px', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>
             Добавить
           </Button>
         </Grid>

@@ -27,13 +27,13 @@ const TaskComponent = ({ task, deleteTask, checkTask, editTask }) => {
         <Grid size={2}>
           <Checkbox
             className="taskCheckBox"
-            checked={task.isDone}
+            checked={task.isCompleted}
             onChange={() => checkTask(task.id)}
           />
         </Grid>
         <Grid size={6}>
           {!isEdit ? (
-            <p className={`${task.isDone ? "checked" : ""} taskTitle `}>
+            <p className={`${task.isCompleted ? "checked" : ""} taskTitle `}>
               {task.title}
             </p>
           ) : (
