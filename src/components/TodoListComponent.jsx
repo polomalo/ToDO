@@ -8,9 +8,6 @@ const TodoListComponent = ({ tasks, deleteTask, checkTask, editTask }) => {
         <TaskComponent
           key={item.id}
           task={item}
-          deleteTask={deleteTask}
-          checkTask={checkTask}
-          editTask={editTask}
         />
       ))}
       

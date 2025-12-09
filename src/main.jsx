@@ -4,6 +4,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import './index.css'
 import App from './App.jsx'
+import { Provider } from 'react-redux'
+import store from './redux/store.js'
 
 const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
 
@@ -14,10 +16,13 @@ const theme = createTheme({
 })
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </StrictMode>,
+  
+    <StrictMode>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </StrictMode>,
 )

@@ -3,14 +3,18 @@ import { Grid, Checkbox, TextField, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
+import { useDispatch } from 'react-redux';
+import { editTask, deleteTask, checkTask } from "../redux/actions/tasksActions";
 
-const TaskComponent = ({ task, deleteTask, checkTask, editTask }) => {
+const TaskComponent = ({ task }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editTextTask, setEditTextTask] = useState(task.title);
   const [error, setError] = useState("")
+  const dispatch = useDispatch();
+
   const handleEditTask = () => {
     if (editTextTask !== "") {
-      editTask(task.id, editTextTask);
+      dispatch(editTask(task.id, editTextTask));
       setIsEdit(false);
       setError("");
     } else {
@@ -21,6 +25,7 @@ const TaskComponent = ({ task, deleteTask, checkTask, editTask }) => {
     setEditTextTask(e.target.value);
     if (error) setError("");
   };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -28,7 +33,7 @@ const TaskComponent = ({ task, deleteTask, checkTask, editTask }) => {
           <Checkbox
             className="taskCheckBox"
             checked={task.isDone}
-            onChange={() => checkTask(task.id)}
+            onChange={() => dispatch(checkTask(task.id))}
           />
         </Grid>
         <Grid size={6}>
@@ -64,7 +69,7 @@ const TaskComponent = ({ task, deleteTask, checkTask, editTask }) => {
             <IconButton
               className="taskBtn"
               size="small"
-              onClick={() => deleteTask(task.id)}
+              onClick={() => dispatch(deleteTask(task.id))}
             >
               <DeleteIcon />
             </IconButton>

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
+import { useDispatch } from 'react-redux';
+import { addNewTask } from "../redux/actions/tasksActions";
 
-const InputComponent = ({ setTasks }) => {
+const InputComponent = () => {
   const [text, setText] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setText(e.target.value);
     setError("")
   };
   const handleClick = () => {
     if (text !== "") {
-      setTasks((tasks) => [
-        ...tasks,
-        { id: crypto.randomUUID(), title: text, isDone: false },
-      ]);
+      dispatch(addNewTask({ id: crypto.randomUUID(), title: text, isDone: false }))
       setText("");
     } else {
       setError('Нельзя добавить пустую задачу')
