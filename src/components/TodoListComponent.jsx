@@ -1,6 +1,6 @@
 import TaskComponent from "./TaskComponent";
 
-const TodoListComponent = ({ tasks, deleteTask, checkTask, editTask }) => {
+const TodoListComponent = ({ tasks }) => {
   return (
     <>
       {tasks.length === 0 && <h2>Список задач пуст</h2>}

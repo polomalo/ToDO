@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Grid, Checkbox, TextField, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import { useDispatch } from 'react-redux';
-import { editTask, deleteTask, checkTask } from "../redux/actions/tasksActions";
+import { deleteTask, editTask, checkTask } from "../redux/slices/tasksSlice";
 
 const TaskComponent = ({ task }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -14,7 +14,7 @@ const TaskComponent = ({ task }) => {
 
   const handleEditTask = () => {
     if (editTextTask !== "") {
-      dispatch(editTask(task.id, editTextTask));
+      dispatch(editTask({id: task.id, newTitle: editTextTask}));
       setIsEdit(false);
       setError("");
     } else {
@@ -26,9 +26,12 @@ const TaskComponent = ({ task }) => {
     if (error) setError("");
   };
 
+  const handleEditClick = () => {
+    isEdit ? handleEditTask() : setIsEdit(true);
+  };
+
   return (
-    <>
-      <Grid container spacing={2}>
+    <Grid container spacing={2}>
         <Grid size={2}>
           <Checkbox
             className="taskCheckBox"
@@ -58,9 +61,7 @@ const TaskComponent = ({ task }) => {
             <IconButton
               className="taskBtn"
               size="small"
-              onClick={
-                !isEdit ? () => setIsEdit((isEdit) => !isEdit) : handleEditTask
-              }
+              onClick={handleEditClick}
             >
               {!isEdit ? <EditIcon size="small" /> : <CheckIcon />}
             </IconButton>
@@ -75,8 +76,7 @@ const TaskComponent = ({ task }) => {
             </IconButton>
           </Grid>
         </Grid>
-      </Grid>
-    </>
+    </Grid>
   );
 };
 

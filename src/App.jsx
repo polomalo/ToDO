@@ -5,12 +5,12 @@ import TodoListComponent from "./components/TodoListComponent";
 import FilterBtn from "./components/FilterBtn";
 import { Grid, Button, Stack, Box } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
-import { clearDoneTasks } from "./redux/actions/tasksActions";
+import { clearDoneTasks } from "./redux/slices/tasksSlice";
 
 function App() {
     const [filter, setFilter] = useState("all");
 
-    const { tasks } = useSelector(state => state.tasks);
+    const tasks = useSelector(state => state.tasks.items);
     const dispatch = useDispatch();
     
     const handleFilterTasks = (key) => {

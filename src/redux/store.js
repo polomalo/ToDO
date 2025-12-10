@@ -1,11 +1,25 @@
-import { legacy_createStore as createStore, combineReducers } from 'redux';
-import tasksReducer from './reducers/tasksReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import tasksSlice from './slices/tasksSlice';
 
+const persistConfig = {
+  key: 'tasks',
+  storage,
+};
 
-const rootReducer = combineReducers({
-  tasks: tasksReducer
-})
+const persistedReducer = persistReducer(persistConfig, tasksSlice);
 
-const store = createStore(rootReducer);
+export const store = configureStore({
+  reducer: {
+    tasks: persistedReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+      },
+    }),
+});
 
-export default store
+export const persistor = persistStore(store);
