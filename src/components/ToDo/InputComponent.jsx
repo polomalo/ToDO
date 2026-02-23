@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { addNewTask } from "../redux/slices/tasksSlice";
+import { addNewTask } from "@redux/slices/tasksSlice";
 
 const InputComponent = () => {
   const [text, setText] = useState("");

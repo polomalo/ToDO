@@ -5,8 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import './index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { store, persistor } from './redux/store.js'
+import { store } from './redux/store.js'
+import { BrowserRouter } from 'react-router'
 
 const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
 
@@ -17,15 +17,14 @@ const theme = createTheme({
 })
 
 createRoot(document.getElementById('root')).render(
-  
     <StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <App />
-          </PersistGate>
-        </Provider>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Provider store={store}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Provider>
+        </ThemeProvider>
     </StrictMode>,
 )

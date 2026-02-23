@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import { useDispatch } from 'react-redux';
-import { deleteTask, editTask, checkTask } from "../redux/slices/tasksSlice";
+import { deleteTask, editTask, checkTask } from "@redux/slices/tasksSlice";
 
 const TaskComponent = ({ task }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -14,7 +14,7 @@ const TaskComponent = ({ task }) => {
 
   const handleEditTask = () => {
     if (editTextTask !== "") {
-      dispatch(editTask({id: task.id, newTitle: editTextTask}));
+      dispatch(editTask({id: task.id, title: editTextTask}));
       setIsEdit(false);
       setError("");
     } else {
@@ -35,13 +35,13 @@ const TaskComponent = ({ task }) => {
         <Grid size={2}>
           <Checkbox
             className="taskCheckBox"
-            checked={task.isDone}
+            checked={task.isCompleted}
             onChange={() => dispatch(checkTask(task.id))}
           />
         </Grid>
         <Grid size={6}>
           {!isEdit ? (
-            <p className={`${task.isDone ? "checked" : ""} taskTitle `}>
+            <p className={`${task.isCompleted ? "checked" : ""} taskTitle `}>
               {task.title}
             </p>
           ) : (
